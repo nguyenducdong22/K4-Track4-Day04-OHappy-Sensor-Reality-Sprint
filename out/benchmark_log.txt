@@ -1,0 +1,126 @@
+T6 rangefinder fault benchmark - OHappy | du lieu tong hop, 40 seed/cau hinh, 20 Hz, ha canh tu 10.0 m
+Landing risk = clip((v_cham_dat - 0.4)/0.8, 0, 1); hard landing = v_cham_dat >= 0.9 m/s
+tmo% = timeout rate; rvar = phuong sai (r - h_that) [m^2]; rmse = RMSE uoc luong khi h < 3 m [m]
+prec/rec = phat hien mau loi; FA = false alarm tren mau sach; t_land = thoi gian ha canh [s]
+
+fault        level           mode         tmo%   rvar  prec   rec    FA  rmse  v_td  risk hard% t_land
+------------------------------------------------------------------------------------------------------
+clean        baseline        raw           0.0  0.002    -     -   0.00  0.03  0.30  0.00     0   14.2
+clean        baseline        median        0.0  0.002    -     -   0.00  0.06  0.30  0.00     0   13.8
+clean        baseline        mad           0.0  0.002  0.00    -   0.01  0.03  0.30  0.00     0   14.2
+clean        baseline        kf            0.0  0.002    -     -   0.00  0.02  0.30  0.00     0   14.2
+clean        baseline        kf_fallback   0.0  0.002    -     -   0.00  0.02  0.30  0.00     0   14.2
+noise        sigma 0.1 m     raw           0.0  0.008    -   0.00  0.00  0.10  0.30  0.00     0   14.2
+noise        sigma 0.1 m     median        0.0  0.008  1.00  0.01  0.00  0.09  0.30  0.00     0   13.8
+noise        sigma 0.1 m     mad           0.0  0.008  0.66  0.03  0.03  0.10  0.30  0.00     0   14.2
+noise        sigma 0.1 m     kf            0.0  0.008  1.00  0.03  0.00  0.07  0.30  0.00     0   14.2
+noise        sigma 0.1 m     kf_fallback   0.0  0.008  1.00  0.03  0.00  0.07  0.30  0.00     0   14.3
+noise        sigma 0.3 m     raw           0.0  0.058    -   0.00  0.00  0.30  0.30  0.00     0   14.0
+noise        sigma 0.3 m     median        0.0  0.057  1.00  0.14  0.00  0.19  0.30  0.00     0   13.8
+noise        sigma 0.3 m     mad           0.0  0.058  0.76  0.06  0.03  0.29  0.30  0.00     0   13.9
+noise        sigma 0.3 m     kf            0.0  0.058  1.00  0.40  0.00  0.18  0.30  0.00     0   14.2
+noise        sigma 0.3 m     kf_fallback   0.0  0.067  1.00  0.38  0.00  0.18  0.30  0.00     0   20.4
+noise        sigma 0.6 m     raw           0.0  0.198    -   0.00  0.00  0.60  0.30  0.00     0   13.5
+noise        sigma 0.6 m     median        0.0  0.198  1.00  0.36  0.00  0.35  0.30  0.00     0   13.6
+noise        sigma 0.6 m     mad           0.0  0.198  0.88  0.12  0.02  0.55  0.30  0.00     0   13.4
+noise        sigma 0.6 m     kf            0.0  0.205  1.00  0.65  0.00  0.27  0.30  0.00     0   14.2
+noise        sigma 0.6 m     kf_fallback   0.0  0.254  1.00  0.64  0.00  0.27  0.30  0.00     0   22.3
+dropout      timeout 10%     raw           6.4  0.002  1.00  1.00  0.00  0.06  0.30  0.00     0   14.0
+dropout      timeout 10%     median        6.4  0.002  0.93  1.00  0.00  0.14  0.30  0.00     0   13.4
+dropout      timeout 10%     mad           6.3  0.002  0.76  1.00  0.02  0.11  0.30  0.00     0   13.9
+dropout      timeout 10%     kf            6.4  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.2
+dropout      timeout 10%     kf_fallback   6.7  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   15.0
+dropout      timeout 30%     raw          20.0  0.002  1.00  1.00  0.00  0.09  0.30  0.00     0   14.0
+dropout      timeout 30%     median       19.2  0.002  0.94  1.00  0.02  0.19  0.30  0.00     0   13.3
+dropout      timeout 30%     mad          20.1  0.002  0.87  1.00  0.04  0.16  0.30  0.00     0   13.9
+dropout      timeout 30%     kf           20.1  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.2
+dropout      timeout 30%     kf_fallback  21.3  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   18.1
+dropout      timeout 60%     raw          36.3  0.003  1.00  1.00  0.00  0.21  0.30  0.00     0   13.3
+dropout      timeout 60%     median       34.3  0.003  0.94  1.00  0.03  0.47  0.34  0.03     2   12.4
+dropout      timeout 60%     mad          35.4  0.003  0.92  1.00  0.05  0.45  0.39  0.08    10   12.9
+dropout      timeout 60%     kf           38.0  0.003  1.00  1.00  0.00  0.03  0.30  0.00     0   14.2
+dropout      timeout 60%     kf_fallback  44.7  0.003  1.00  1.00  0.00  0.03  0.30  0.00     0   21.4
+out_of_range invalid 5%      raw           0.0  0.002    -   0.00  0.00  1.68  0.33  0.01     0   13.8
+out_of_range invalid 5%      median        0.0  0.002  1.00  1.00  0.00  0.07  0.30  0.00     0   13.8
+out_of_range invalid 5%      mad           0.0  0.002  0.72  1.00  0.01  0.03  0.30  0.00     0   14.2
+out_of_range invalid 5%      kf            0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.2
+out_of_range invalid 5%      kf_fallback   0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.6
+out_of_range invalid 15%     raw           0.0  0.002    -   0.00  0.00  3.15  0.40  0.04     0   12.9
+out_of_range invalid 15%     median        0.0  0.002  1.00  1.00  0.00  0.08  0.30  0.00     0   13.7
+out_of_range invalid 15%     mad           0.0  0.002  0.89  1.00  0.01  0.03  0.30  0.00     0   14.2
+out_of_range invalid 15%     kf            0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.2
+out_of_range invalid 15%     kf_fallback   0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   17.4
+out_of_range invalid 30%     raw           0.0  0.003    -   0.00  0.00  4.36  0.51  0.15     0   12.2
+out_of_range invalid 30%     median        0.0  0.002  0.99  1.00  0.00  0.12  0.30  0.00     0   13.5
+out_of_range invalid 30%     mad           0.0  0.002  0.95  1.00  0.01  0.04  0.30  0.00     0   14.1
+out_of_range invalid 30%     kf            0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   14.2
+out_of_range invalid 30%     kf_fallback   0.0  0.002  1.00  1.00  0.00  0.02  0.30  0.00     0   19.0
+spike        spike 2%        raw           0.0  0.102    -   0.00  0.00  0.31  0.31  0.00     0   14.0
+spike        spike 2%        median        0.0  0.101  1.00  0.94  0.00  0.06  0.30  0.00     0   13.8
+spike        spike 2%        mad           0.0  0.105  0.48  0.96  0.01  0.04  0.30  0.00     0   14.2
+spike        spike 2%        kf            0.0  0.103  1.00  0.95  0.00  0.02  0.30  0.00     0   14.2
+spike        spike 2%        kf_fallback   0.0  0.109  1.00  0.96  0.00  0.02  0.30  0.00     0   14.3
+spike        spike 5%        raw           0.0  0.302    -   0.00  0.00  0.57  0.33  0.01     0   13.8
+spike        spike 5%        median        0.0  0.297  1.00  0.91  0.00  0.06  0.30  0.00     0   13.8
+spike        spike 5%        mad           0.0  0.298  0.71  0.96  0.01  0.06  0.30  0.00     0   14.1
+spike        spike 5%        kf            0.0  0.297  1.00  0.97  0.00  0.02  0.30  0.00     0   14.2
+spike        spike 5%        kf_fallback   0.0  0.309  1.00  0.98  0.00  0.02  0.30  0.00     0   14.8
+spike        spike 10%       raw           0.0  0.555    -   0.00  0.00  0.84  0.33  0.00     0   13.4
+spike        spike 10%       median        0.0  0.553  0.99  0.89  0.00  0.09  0.30  0.00     0   13.8
+spike        spike 10%       mad           0.0  0.559  0.86  0.95  0.01  0.08  0.30  0.00     0   14.1
+spike        spike 10%       kf            0.0  0.560  1.00  0.96  0.00  0.02  0.30  0.00     0   14.2
+spike        spike 10%       kf_fallback   0.0  0.603  1.00  0.97  0.00  0.02  0.30  0.00     0   15.9
+stuck        stuck 1 s       raw           0.0  0.049    -   0.00  0.00  0.09  0.30  0.00     0   14.1
+stuck        stuck 1 s       median        0.0  0.051  0.00  0.00  0.01  0.14  0.30  0.00     0   13.7
+stuck        stuck 1 s       mad           0.0  0.051  0.00  0.00  0.04  0.18  0.30  0.00     0   13.7
+stuck        stuck 1 s       kf            0.0  0.049  0.96  0.55  0.00  0.04  0.30  0.00     0   14.1
+stuck        stuck 1 s       kf_fallback   0.0  0.036  0.96  0.55  0.00  0.04  0.30  0.00     0   15.4
+stuck        stuck 3 s       raw           0.0  1.225    -   0.00  0.00  1.16  0.58  0.24    22   12.5
+stuck        stuck 3 s       median        0.0  1.249  0.00  0.00  0.01  1.27  0.59  0.25    25   12.2
+stuck        stuck 3 s       mad           0.0  1.264  0.00  0.00  0.05  1.56  0.63  0.28    28   12.0
+stuck        stuck 3 s       kf            0.0  1.090  0.85  0.85  0.04  0.11  0.30  0.00     0   13.7
+stuck        stuck 3 s       kf_fallback   0.0  0.271  0.92  0.85  0.02  0.05  0.30  0.00     0   16.9
+stuck        stuck den het   raw           0.0  3.755    -   0.00  0.00  4.43  1.50  1.00   100    9.0
+stuck        stuck den het   median        0.0  3.755    -   0.00  0.00  4.43  1.50  1.00   100    9.0
+stuck        stuck den het   mad           0.0  3.755  0.00  0.00  0.02  4.43  1.50  1.00   100    9.0
+stuck        stuck den het   kf            0.0  5.623  1.00  0.94  0.00  0.21  0.30  0.00     0   13.6
+stuck        stuck den het   kf_fallback   0.0  3.781  1.00  0.97  0.00  0.21  0.30  0.00     0   21.4
+bias         bias +0.3 m     raw           0.0  0.023    -   0.00  0.00  0.30  0.30  0.00     0   13.4
+bias         bias +0.3 m     median        0.0  0.023    -   0.00  0.00  0.35  0.30  0.00     0   13.0
+bias         bias +0.3 m     mad           0.0  0.023  0.12  0.00  0.03  0.30  0.30  0.00     0   13.4
+bias         bias +0.3 m     kf            0.0  0.023  1.00  0.00  0.00  0.30  0.30  0.00     0   13.4
+bias         bias +0.3 m     kf_fallback   0.0  0.023  1.00  0.00  0.00  0.30  0.30  0.00     0   13.5
+bias         bias +0.8 m     raw           0.0  0.148    -   0.00  0.00  0.80  0.30  0.00     0   12.1
+bias         bias +0.8 m     median        0.0  0.150  1.00  0.01  0.00  0.87  0.30  0.00     0   11.7
+bias         bias +0.8 m     mad           0.0  0.148  0.04  0.00  0.03  0.80  0.30  0.00     0   12.1
+bias         bias +0.8 m     kf            0.0  0.145  1.00  0.49  0.00  0.67  0.30  0.00     0   13.2
+bias         bias +0.8 m     kf_fallback   0.0  0.133  1.00  0.39  0.00  0.74  0.30  0.00     0   15.8
+bias         bias +1.5 m     raw           0.0  0.534    -   0.00  0.00  1.50  0.31  0.00     0   10.2
+bias         bias +1.5 m     median        0.0  0.530  1.00  0.02  0.00  1.61  0.33  0.00     0    9.8
+bias         bias +1.5 m     mad           0.0  0.534  0.00  0.00  0.02  1.50  0.31  0.00     0   10.2
+bias         bias +1.5 m     kf            0.0  0.505  1.00  1.00  0.00  0.17  0.30  0.00     0   14.2
+bias         bias +1.5 m     kf_fallback   0.0  0.397  1.00  1.00  0.00  0.22  0.30  0.00     0   22.6
+terrain      step 0.5 m      raw           0.0  0.002    -     -   0.00  0.03  0.30  0.00     0   13.9
+terrain      step 0.5 m      median        0.0  0.002  0.00    -   0.01  0.07  0.30  0.00     0   13.5
+terrain      step 0.5 m      mad           0.0  0.002  0.00    -   0.01  0.03  0.30  0.00     0   13.9
+terrain      step 0.5 m      kf            0.0  0.002  0.00    -   0.08  0.09  0.30  0.00     0   13.5
+terrain      step 0.5 m      kf_fallback   0.0  0.002  0.00    -   0.07  0.06  0.30  0.00     0   15.3
+terrain      step 1.0 m      raw           0.0  0.002    -     -   0.00  0.03  0.30  0.00     0   13.5
+terrain      step 1.0 m      median        0.0  0.002  0.00    -   0.01  0.08  0.30  0.00     0   13.2
+terrain      step 1.0 m      mad           0.0  0.002  0.00    -   0.03  0.07  0.30  0.00     0   13.5
+terrain      step 1.0 m      kf            0.0  0.002  0.00    -   0.48  0.98  0.30  0.00     0   10.8
+terrain      step 1.0 m      kf_fallback   0.0  0.002  0.00    -   0.57  0.77  0.30  0.00     0   19.1
+terrain      step 2.0 m      raw           0.0  0.002    -     -   0.00  0.03  0.30  0.00     0   12.2
+terrain      step 2.0 m      median        0.0  0.002  0.00    -   0.01  0.18  0.30  0.00     0   11.8
+terrain      step 2.0 m      mad           0.0  0.002  0.00    -   0.04  0.39  0.31  0.00     0   11.8
+terrain      step 2.0 m      kf            0.0  0.003  0.00    -   0.33  2.00  0.63  0.29    15    7.9
+terrain      step 2.0 m      kf_fallback   0.0  0.002  0.00    -   0.67  2.00  0.30  0.00     0   16.1
+
+TONG HOP tren baseline + tat ca loi (khong tinh terrain):
+              risk  hard_rate   v_td  t_land
+mode                                        
+raw          0.076      0.064  0.400  13.081
+median       0.067      0.067  0.383  12.931
+mad          0.072      0.072  0.386  13.242
+kf           0.000      0.000  0.300  14.034
+kf_fallback  0.000      0.000  0.300  17.223
